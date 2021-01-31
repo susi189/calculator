@@ -1,0 +1,60 @@
+body {
+  background-image: url(image-calculator.jpg);
+  background-color: #ceeaf7;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  max-width: 100%;
+  height: auto;
+  font-family: "Dosis", sans-serif;
+}
+
+.container {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 15%;
+  margin-left: 15%;
+  margin-top: 5%;
+}
+
+#device {
+  background-color: #42464d;
+  border-radius: 25px;
+  width: 400px;
+  height: 500px;
+}
+
+#display {
+  background-color: #f3f5f6;
+  border-radius: 10px;
+  margin-top: 5%;
+  margin-left: 5%;
+  width: 90%;
+  height: 20%;
+}
+
+#btn-container {
+  display: grid;
+  margin: 5%;
+  grid-template-rows: repeat(var(--grid-row), 1fr);
+  grid-template-columns: repeat(var(--grid-col), 1fr);
+}
+
+button {
+  background-color: #c893a4;
+  margin: 3%;
+  padding-top: 4%;
+  padding-bottom: 4%;
+  border-radius: 10px;
+  font-family: "Dosis", sans-serif;
+  font-size: 2.5em;
+  text-align: center;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 10%;
+  color: #42464d;
+  text-align: center;
+}
