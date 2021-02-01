@@ -27,10 +27,11 @@ body {
 #display {
   background-color: #f3f5f6;
   border-radius: 10px;
-  margin-top: 5%;
-  margin-left: 5%;
+  margin: 5%;
   width: 90%;
   height: 20%;
+  font-size: 4.5em;
+  text-align: end;
 }
 
 #btn-container {
@@ -53,8 +54,9 @@ button {
 
 footer {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   margin-top: 10%;
+  margin-bottom: 0;
   color: #42464d;
   text-align: center;
 }
