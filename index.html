@@ -5,37 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
     <link rel="stylesheet" type="text/css" href="stylesheet.css" />
-    link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
     <section class='container'>
         <div id='device'>
-            <div id='display'>123</div>
+            <div id='display'></div>
             <div id='btn-container' style='--grid-row:5; --grid-col:4'>
-                <button class=''>AC</button>
-                <button class='grid'>+/-</button>
-                <button class='grid'>%</button>
-                <button class='grid'>÷</button>
+                <button id='clear'>AC</button>
+                <button class='operator'>+/-</button>
+                <button class='operator'>%</button>
+                <button class='operator'>÷</button>
                 <button class='num-btn'>7</button>
                 <button class='num-btn'>8</button>
                 <button class='num-btn'>9</button>
-                <button class='grid'>X</button>
+                <button class='operator'>X</button>
                 <button class='num-btn'>4</button>
                 <button class='num-btn'>5</button>
                 <button class='num-btn'>6</button>
-                <button class='grid'>-</button>
+                <button class='operator'>-</button>
                 <button class='num-btn'>1</button>
                 <button class='num-btn'>2</button>
                 <button class='num-btn'>3</button>
-                <button class='grid'>+</button>
-                <button class='grid'>⌫</button>
+                <button class='operator'>+</button>
+                <button id='delete'>⌫</button>
                 <button class='num-btn'>0</button>
-                <button class='grid'>.</button>
-                <button class='grid'>=</button>
+                <button id='decimals'>.</button>
+                <button class='operator'>=</button>
             </div>
         </div>
     </section>
     <footer>Photo by <a href="https://unsplash.com/@anniespratt?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Annie Spratt</a> on <a href="https://unsplash.com/">Unsplash</a></footer>
+
+    <script src=script.js></script>
 </body>
 </html>
