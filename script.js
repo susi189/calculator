@@ -14,29 +14,40 @@ function divide(x, y){
     return x/y
 }
 
-let result = 0;
+const operation = {
+    operator: null,
+    number: null,
+    result: 0
+}
 
 const operate = function(operator, num1, num2){ 
     if(operator === '+'){
-        result = add(num1, num2);
+        operation.result = add(num1, num2);
     } else if(operator === '-'){
-        result = substract(num1, num2);
+        operation.result = substract(num1, num2);
     } else if(operator === '*'){
-        result = multiply(num1, num2);
+        operation.result = multiply(num1, num2);
     } else if(operator === '/'){
-        result = divide(num1, num2);
+        operation.result = divide(num1, num2);
+    } else if (operator === '='){
+        return operation.result
     }
     console.log(result);
 }
+
+
 
 const display = document.getElementById('display');
 
 const button = document.querySelector('button');
 
-const numbers = document.querySelector('.num-btn');
+const number = document.querySelectorAll('.num-btn');
+
 
 const operator = document.querySelector('.operator');
 
 button.addEventListener('click', (event) => {
-    
+    if(event.target = number){
+        
+    }
 })
