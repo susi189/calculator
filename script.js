@@ -39,15 +39,13 @@ const operate = function(operator, num1, num2){
 
 const display = document.getElementById('display');
 
-const button = document.querySelector('button');
+const button = document.querySelectorAll('button');
 
 const number = document.querySelectorAll('.num-btn');
 
 
 const operator = document.querySelector('.operator');
 
-button.addEventListener('click', (event) => {
-    if(event.target = number){
-        
-    }
+button.addEventListener('click', () => {
+   console.log('hello')
 })
