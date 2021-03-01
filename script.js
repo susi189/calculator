@@ -1,3 +1,5 @@
+// Create funtions for each operation
+
 function add(x, y){
     return x + y
 }
@@ -46,6 +48,8 @@ const number = document.querySelectorAll('.num-btn');
 
 const operator = document.querySelector('.operator');
 
-button.addEventListener('click', () => {
-   console.log('hello')
+button.forEach((button) => {
+    button.addEventListener('click', () => {
+        console.log('here')
+    })
 })
