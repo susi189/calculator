@@ -32,9 +32,11 @@ const operate = function(operator, num1, num2){
     } else if(operator === '/'){
         operation.result = divide(num1, num2);
     } else if (operator === '='){
-        return operation.result
+        console.log(operation.result)
+        operation.operator = null;
+        operation.number = null;
+        operation.result = 0;
     }
-    console.log(result);
 }
 
 
@@ -49,7 +51,12 @@ const number = document.querySelectorAll('.num-btn');
 const operator = document.querySelector('.operator');
 
 button.forEach((button) => {
-    button.addEventListener('click', () => {
-        console.log('here')
+    button.addEventListener('click', (event) => {
+     if(event.target.className === 'num-btn'){
+        operation.number = Number(event.target.innerText)
+     } else if(event.target.className === 'operator') {
+         operation.operator = event.target.innerText
+     }
+     operate(operation.operator, operation.result, operation.number)
     })
 })
