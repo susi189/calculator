@@ -16,30 +16,22 @@ function divide(x, y){
     return x/y
 }
 
-const operation = {
-    operator: null,
-    number: null,
-    result: 0
-}
+const operationElem = [];
+const result = null;
 
 const operate = function(operator, num1, num2){ 
     if(operator === '+'){
-        operation.result = add(num1, num2);
+        result = add(num1, num2);
     } else if(operator === '-'){
-        operation.result = substract(num1, num2);
-    } else if(operator === '*'){
-        operation.result = multiply(num1, num2);
-    } else if(operator === '/'){
-        operation.result = divide(num1, num2);
+        result = substract(num1, num2);
+    } else if(operator === 'x'){
+        result = multiply(num1, num2);
+    } else if(operator === '÷'){
+        result = divide(num1, num2);
     } else if (operator === '='){
-        console.log(operation.result)
-        operation.operator = null;
-        operation.number = null;
-        operation.result = 0;
+        result = null;
     }
 }
-
-
 
 const display = document.getElementById('display');
 
@@ -53,10 +45,17 @@ const operator = document.querySelector('.operator');
 button.forEach((button) => {
     button.addEventListener('click', (event) => {
      if(event.target.className === 'num-btn'){
-        operation.number = Number(event.target.innerText)
-     } else if(event.target.className === 'operator') {
-         operation.operator = event.target.innerText
+        let currentNumber = event.target.innerText;
+        if(typeof operationElem[operationElem.length -1] === 'number'){
+            let previousNumber = operationElem[operationElem.length -1];
+            let multiDigit = previousNumber.toString() + currentNumber
+            operationElem.splice(-1, 1, Number(multiDigit));
+        } else {
+            operationElem.push(Number(event.target.innerText))
+        }
+     } else {
+         operationElem.push(event.target.innerText);
      }
-     operate(operation.operator, operation.result, operation.number)
-    })
+     console.log(operationElem)
+    });
 })
