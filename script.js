@@ -16,8 +16,12 @@ function divide(x, y){
     return x/y
 }
 
-const operationElem = [];
-const result = null;
+const lineUp = [];
+const operationElements = {
+    operator: null,
+    number: null,
+    result: null
+}
 
 const operate = function(operator, num1, num2){ 
     if(operator === '+'){
@@ -46,16 +50,34 @@ button.forEach((button) => {
     button.addEventListener('click', (event) => {
      if(event.target.className === 'num-btn'){
         let currentNumber = event.target.innerText;
-        if(typeof operationElem[operationElem.length -1] === 'number'){
-            let previousNumber = operationElem[operationElem.length -1];
-            let multiDigit = previousNumber.toString() + currentNumber
-            operationElem.splice(-1, 1, Number(multiDigit));
+        if(typeof lineUp[lineUp.length -1] === 'number'){
+            let previousNumber = lineUp[lineUp.length-1];
+            let multiDigit = previousNumber.toString() + currentNumber;
+            lineUp.splice(-1, 1, Number(multiDigit)); 
         } else {
-            operationElem.push(Number(event.target.innerText))
+            lineUp.push(Number(event.target.innerText));
         }
-     } else {
-         operationElem.push(event.target.innerText);
+        operationElements.number = lineUp[lineUp.length -1];
+        display.innerText = operationElements.number;
+     } else if(event.target.className === 'operator') {
+         if(typeof lineUp[lineUp.length -1] !== 'number'){
+            lineUp.splice(-1, 1, event.target.innerText);
+         } else {
+            lineUp.push(event.target.innerText);
+         }
+         operationElements.operator = lineUp[lineUp.length -1];
      }
-     console.log(operationElem)
+     if(typeof lineUp[0] !== 'number'){
+         lineUp.unshift(0);
+         operationElements.number = 0;
+     }
+     console.log(lineUp);
+     console.log(operationElements);
+     if(lineUp.length === 3){
+        operate()
+        display.innerText = result
+     } else if(lineUp.length > 3){
+        operate()
+     }
     });
 })
