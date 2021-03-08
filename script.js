@@ -19,9 +19,9 @@ function divide(x, y){
 const lineUp = [];
 const operationElements = {
     operator: null,
-    number: null,
-    result: null
+    number: null
 }
+let result = null;
 
 const operate = function(operator, num1, num2){ 
     if(operator === '+'){
@@ -32,7 +32,8 @@ const operate = function(operator, num1, num2){
         result = multiply(num1, num2);
     } else if(operator === '÷'){
         result = divide(num1, num2);
-    } else if (operator === '='){
+    } 
+    if (operator === '='){
         result = null;
     }
 }
@@ -60,6 +61,7 @@ button.forEach((button) => {
         operationElements.number = lineUp[lineUp.length -1];
         display.innerText = operationElements.number;
      } else if(event.target.className === 'operator') {
+         display.innerText = operationElements.number;
          if(typeof lineUp[lineUp.length -1] !== 'number'){
             lineUp.splice(-1, 1, event.target.innerText);
          } else {
@@ -74,10 +76,10 @@ button.forEach((button) => {
      console.log(lineUp);
      console.log(operationElements);
      if(lineUp.length === 3){
-        operate()
-        display.innerText = result
+        operate(operationElements.operator, lineUp[0], lineUp[2]);
      } else if(lineUp.length > 3){
-        operate()
+        operate(operationElements.operator, result, operationElements.number);
      }
+     console.log(result)
     });
 })
