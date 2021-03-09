@@ -21,6 +21,7 @@ const operationElements = {
     operator: null,
     number: null
 }
+
 let result = null;
 
 const operate = function(operator, num1, num2){ 
@@ -61,25 +62,26 @@ button.forEach((button) => {
         operationElements.number = lineUp[lineUp.length -1];
         display.innerText = operationElements.number;
      } else if(event.target.className === 'operator') {
-         display.innerText = operationElements.number;
          if(typeof lineUp[lineUp.length -1] !== 'number'){
             lineUp.splice(-1, 1, event.target.innerText);
          } else {
             lineUp.push(event.target.innerText);
          }
          operationElements.operator = lineUp[lineUp.length -1];
+         if(result === null){
+             display.innerText = lineUp[0];
+         } else {
+             display.innerText = result;
+         }
      }
      if(typeof lineUp[0] !== 'number'){
          lineUp.unshift(0);
          operationElements.number = 0;
      }
-     console.log(lineUp);
-     console.log(operationElements);
      if(lineUp.length === 3){
         operate(operationElements.operator, lineUp[0], lineUp[2]);
-     } else if(lineUp.length > 3){
+     } else if(lineUp.length > 3 && event.target.className === 'num-btn'){
         operate(operationElements.operator, result, operationElements.number);
      }
-     console.log(result)
     });
 })
