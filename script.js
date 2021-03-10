@@ -89,14 +89,20 @@ button.forEach((button) => {
          } else {
              display.innerText = result;
          }  
+         //// ------> insert here the logic for '='
      } else if(event.target.className === 'clear'){
          clear()
      }
     //  //Edge case: what if a user pressed an operator first; What is the default
-    //  if(typeof lineUp[0] !== 'number'){
-    //      lineUp.unshift(0);
-    //      operationElements.number = 0;
-    //  }
+     if(typeof lineUp[0] !== 'number'){
+         if(result !== null){
+            lineUp.unshift(result);
+            operationElements.number = result;
+         } else {
+            lineUp.unshift(0);
+            operationElements.number = 0; 
+         }
+     }
      if(lineUp.length === 3){
         operate(operationElements.operator, lineUp[0], lineUp[2]);
      } else if(lineUp.length > 3 && event.target.className === 'num-btn'){
