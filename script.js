@@ -28,9 +28,7 @@ let operationElements = {
 let result = null;
 
 const operate = function(operator, num1, num2){ 
-    if(operator === '='){
-       console.log('here')
-    } else if(operator === '-'){
+   if(operator === '-'){
         result = substract(num1, num2);
     } else if(operator === 'x'){
         result = multiply(num1, num2);
@@ -75,26 +73,34 @@ button.forEach((button) => {
          if(result !== null && operationElements.number === null){
              lineUp.push(result);
          }
-        lineUp.push(currentTarget);
-        operationElements.operator = currentTarget;
-         //what number shuld be shown after the operator is pressed
+
+         // Edge case: user is pressing multiple operators in a row
+         if(typeof lineUp[lineUp.length -1] !== 'number'){
+             lineUp.splice(-1, 1, currentTarget)
+         } else {
+             lineUp.push(currentTarget);
+         }
+         operationElements.operator = currentTarget;
+
+        //what number shuld be shown after the operator is pressed
          if(lineUp.length < 3){
             display.innerText = lineUp[0];
          } else {
             display.innerText = result;
          }
-        //  //Edge case: a user is pressing different operators, choose the one that is pressed the latest
-        //  if(typeof lineUp[lineUp.length -1] !== 'number'){
-        //     lineUp.splice(-1, 1, currentTarget);
-        //  } else {
-        //     lineUp.push(currentTarget);
-        //  }
      } else if(event.target.className === 'negative'){
-         operationElements.number = Number('-' + operationElements.number);
-         lineUp.splice(-1, 1, operationElements.number);
-         display.innerText = operationElements.number
+         if(operationElements.number < 0){
+            operationElements.number = - operationElements.number
+         } else {
+            operationElements.number = operationElements.number * (-1);
+         }
+            lineUp.splice(-1, 1, operationElements.number);
+            display.innerText = operationElements.number
 
-     } else if(event.target.className === 'clear'){
+     } else if(event.target.className === 'decimals'){
+        //---------> add the logic here
+     }
+     else if(event.target.className === 'clear'){
          clear()
      } 
      if(currentTarget === '='){
