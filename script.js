@@ -89,6 +89,11 @@ button.forEach((button) => {
         //  } else {
         //     lineUp.push(currentTarget);
         //  }
+     } else if(event.target.className === 'negative'){
+         operationElements.number = Number('-' + operationElements.number);
+         lineUp.splice(-1, 1, operationElements.number);
+         display.innerText = operationElements.number
+
      } else if(event.target.className === 'clear'){
          clear()
      } 
