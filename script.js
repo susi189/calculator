@@ -43,65 +43,58 @@ const operate = function(operator, num1, num2){
 
 const clear = function(){
     lineUp = [];
-    operationElements = {operator: null, number: null}
+    operationElements = {operator: null, number: null};
     result = null;
     display.innerText = 0;
 }
 
 const display = document.getElementById('display');
+display.innerText = 0;
 
 const button = document.querySelectorAll('button');
-
-const number = document.querySelectorAll('.num-btn');
-
-
-const operator = document.querySelector('.operator');
 
 button.forEach((button) => {
     button.addEventListener('click', (event) => {
         //what will happen when a number is pressed
+    let currentTarget = event.target.innerText;
      if(event.target.className === 'num-btn'){
-        let currentNumber = event.target.innerText;
         //what is a user wants to enter a multidigit number
         if(typeof lineUp[lineUp.length -1] === 'number'){
             let previousNumber = lineUp[lineUp.length-1];
-            let multiDigit = previousNumber.toString() + currentNumber;
+            let multiDigit = previousNumber.toString() + currentTarget;
             //replace the previewus number with the generated multidigit number
             lineUp.splice(-1, 1, Number(multiDigit)); 
         } else {
-            lineUp.push(Number(event.target.innerText));
+            lineUp.push(Number(currentTarget));
         }
         //the current number will be stored in an object
         operationElements.number = lineUp[lineUp.length -1];
         display.innerText = operationElements.number;
         //what if a operator button is pressed
      } else if(event.target.className === 'operator') {
-         //Edge case: a user is pressing different operators, choose the one that is pressed the latest
-         if(typeof lineUp[lineUp.length -1] !== 'number'){
-            lineUp.splice(-1, 1, event.target.innerText);
-         } else {
-            lineUp.push(event.target.innerText);
+         if(result !== null && operationElements.number === null){
+             lineUp.push(result);
          }
-         operationElements.operator = lineUp[lineUp.length -1];
+        lineUp.push(currentTarget);
+        operationElements.operator = currentTarget;
          //what number shuld be shown after the operator is pressed
-         if(result === null){
-             display.innerText = lineUp[0];
+         if(lineUp.length < 3){
+            display.innerText = lineUp[0];
          } else {
-             display.innerText = result;
-         }  
-         //// ------> insert here the logic for '='
+            display.innerText = result;
+         }
+        //  //Edge case: a user is pressing different operators, choose the one that is pressed the latest
+        //  if(typeof lineUp[lineUp.length -1] !== 'number'){
+        //     lineUp.splice(-1, 1, currentTarget);
+        //  } else {
+        //     lineUp.push(currentTarget);
+        //  }
      } else if(event.target.className === 'clear'){
          clear()
-     }
-    //  //Edge case: what if a user pressed an operator first; What is the default
-     if(typeof lineUp[0] !== 'number'){
-         if(result !== null){
-            lineUp.unshift(result);
-            operationElements.number = result;
-         } else {
-            lineUp.unshift(0);
-            operationElements.number = 0; 
-         }
+     } 
+     if(currentTarget === '='){
+        lineUp = [];
+        operationElements = {operator: null, number: null};
      }
      if(lineUp.length === 3){
         operate(operationElements.operator, lineUp[0], lineUp[2]);
