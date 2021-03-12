@@ -55,9 +55,14 @@ button.forEach((button) => {
     button.addEventListener('click', (event) => {
         //what will happen when a number is pressed
     let currentTarget = event.target.innerText;
+    let currentNumber = operationElements.number;
      if(event.target.className === 'num-btn'){
+         console.log(currentNumber)
         //what is a user wants to enter a multidigit number
-        if(typeof lineUp[lineUp.length -1] === 'number'){
+        if(typeof currentNumber === 'string' && currentNumber.charAt(currentNumber.length-1) === '.'){
+            let decimal = currentNumber + currentTarget;
+            lineUp.splice(-1, 1, parseFloat(decimal))  
+        } else if(typeof lineUp[lineUp.length -1] === 'number'){
             let previousNumber = lineUp[lineUp.length-1];
             let multiDigit = previousNumber.toString() + currentTarget;
             //replace the previewus number with the generated multidigit number
@@ -73,7 +78,7 @@ button.forEach((button) => {
          if(result !== null && operationElements.number === null){
              lineUp.push(result);
          }
-
+         
          // Edge case: user is pressing multiple operators in a row
          if(typeof lineUp[lineUp.length -1] !== 'number'){
              lineUp.splice(-1, 1, currentTarget)
@@ -99,6 +104,8 @@ button.forEach((button) => {
 
      } else if(event.target.className === 'decimals'){
         //---------> add the logic here
+        operationElements.number = operationElements.number + '.'
+        display.innerText = operationElements.number
      }
      else if(event.target.className === 'clear'){
          clear()
