@@ -103,9 +103,12 @@ button.forEach((button) => {
             display.innerText = operationElements.number
 
      } else if(event.target.className === 'decimals'){
-        //---------> add the logic here
         operationElements.number = operationElements.number + '.'
         display.innerText = operationElements.number
+     } else if(event.target.className === 'percent'){
+        operationElements.number = operationElements.number/100;
+        lineUp.splice(-1, 1, operationElements.number);
+        display.innerText = operationElements.number;
      }
      else if(event.target.className === 'clear'){
          clear()
