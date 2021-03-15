@@ -109,19 +109,26 @@ button.forEach((button) => {
         operationElements.number = operationElements.number/100;
         lineUp.splice(-1, 1, operationElements.number);
         display.innerText = operationElements.number;
-     }
-     else if(event.target.className === 'clear'){
+     } else if(event.target.className === 'delete'){
+         let adjNumber = currentNumber.toString();
+         operationElements.number = Number(adjNumber.slice(0, -1));
+         lineUp.splice(-1, 1, operationElements.number)
+         display.innerText = operationElements.number;
+     } else if(event.target.className === 'clear'){
          clear()
      } 
+
      if(currentTarget === '='){
         lineUp = [];
         operationElements = {operator: null, number: null};
      }
+
      if(lineUp.length === 3){
         operate(operationElements.operator, lineUp[0], lineUp[2]);
      } else if(lineUp.length > 3 && event.target.className === 'num-btn'){
         operate(operationElements.operator, result, lineUp[lineUp.length -1]);
      }
+     
      console.log(lineUp);
      console.log(operationElements);
      console.log(result)
