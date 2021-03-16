@@ -53,20 +53,19 @@ const button = document.querySelectorAll('button');
 
 button.forEach((button) => {
     button.addEventListener('click', (event) => {
-        //what will happen when a number is pressed
+     //what will happen when a number is pressed
     let currentTarget = event.target.innerText;
     let currentNumber = operationElements.number;
      if(event.target.className === 'num-btn'){
-         console.log(currentNumber)
-        //what is a user wants to enter a multidigit number
-        if(typeof currentNumber === 'string' && currentNumber.charAt(currentNumber.length-1) === '.'){
-            let decimal = currentNumber + currentTarget;
-            lineUp.splice(-1, 1, parseFloat(decimal))  
-        } else if(typeof lineUp[lineUp.length -1] === 'number'){
+        // for multidigit: check if the previous entry was a number
+        if(typeof lineUp[lineUp.length -1] === 'number'){
             let previousNumber = lineUp[lineUp.length-1];
             let multiDigit = previousNumber.toString() + currentTarget;
             //replace the previewus number with the generated multidigit number
             lineUp.splice(-1, 1, Number(multiDigit)); 
+        } else if(typeof currentNumber === 'string' && currentNumber.charAt(currentNumber.length-1) === '.'){
+            let decimal = currentNumber + currentTarget;
+            lineUp.splice(-1, 1, parseFloat(decimal))  
         } else {
             lineUp.push(Number(currentTarget));
         }
@@ -128,9 +127,5 @@ button.forEach((button) => {
      } else if(lineUp.length > 3 && event.target.className === 'num-btn'){
         operate(operationElements.operator, result, lineUp[lineUp.length -1]);
      }
-     
-     console.log(lineUp);
-     console.log(operationElements);
-     console.log(result)
     });
 })
