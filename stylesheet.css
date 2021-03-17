@@ -17,14 +17,14 @@ body {
   margin-top: 10%;
 }
 
-#device {
+.calculator {
   background-color: #42464d;
   border-radius: 25px;
   width: 400px;
   height: 500px;
 }
 
-#display {
+.display {
   background-color: #f3f5f6;
   border-radius: 10px;
   margin: 5%;
@@ -35,7 +35,7 @@ body {
   text-align: end;
 }
 
-#btn-container {
+.keys {
   display: grid;
   margin: 5%;
   grid-template-rows: repeat(var(--grid-row), 1fr);
