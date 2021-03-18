@@ -1,42 +1,43 @@
 // Create funtions for each operation
 
 function add(x, y){
-    return x + y
+    return parseFloat(x) + parseFloat(y)
 }
 
-function substract(x, y){
-    return x - y
+function subtract(x, y){
+    return parseFloat(x) - parseFloat(y)
 }
 
 function multiply(x, y){
-    return x * y
+    return parseFloat(x) * parseFloat(y)
 }
 
 function divide(x, y){
-    return x/y
+    return parseFloat(x)/parseFloat(y)
 }
 
 //here I will store single calculation elements that will be displayed
 let lineUp = [];
 
 //here are the curent numbers that the calculation is performed on
-let operationElements = {
-    operator: null,
-    number: null
-}
+// let operationElements = {
+//     operator: null,
+//     number: null
+// }
 
-let result = null;
 
 const operate = function(operator, num1, num2){ 
-   if(operator === '-'){
-        result = substract(num1, num2);
-    } else if(operator === 'x'){
+let result = '';
+   if(operator === 'subtract'){
+        result = subtract(num1, num2);
+    } else if(operator === 'multiply'){
         result = multiply(num1, num2);
-    } else if(operator === '÷'){
+    } else if(operator === 'divide'){
         result = divide(num1, num2);
-    } else if(operator === '+'){
+    } else if(operator === 'add'){
         result = add(num1, num2)
     }
+   return result
 }
 
 // const clear = function(){
@@ -58,37 +59,70 @@ keys.addEventListener('click', (event) => {
         const keyContent = key.innerText;
         const action = key.getAttribute('data-action');
         const displayedContent = display.innerText;
+        const previousKeyType = calculator.dataset.previousKeyType;
+        const firstValue = calculator.dataset.firstValue;
+        const operator = calculator.dataset.operator;
+        const secondValue = displayedContent;
+
         if(!action){
             //we have a number
-            if(displayedContent === '0'){
-                display.innerText = keyContent
+            if(displayedContent === '0' || previousKeyType === 'operator'){
+                display.innerText = keyContent;
             } else {
                 display.innerText = displayedContent + keyContent
             }
+             calculator.dataset.previousKeyType = 'number'
         } 
+        
         if(action === 'add' || action === 'subtract' || action === 'divide' || action === 'multiply'){
-            key.classList.add('is-depressed');
-            
-        }
-        if(action === 'clear'){
-            console.log(key.innerText)
-        }
-        if(action === 'delete'){
-            console.log(key.innerText)
-        } 
-        if(action === 'decimal'){
-            display.innerText = displayedContent + '.'
-        }
-        if(action === 'percent'){
-            console.log(key.innerText)
+
+            if (firstValue && operator && previousKeyType !== 'operator') {
+                const calculatedValue = operate(operator, firstValue, secondValue);
+                display.innerText = calculatedValue;
+                calculator.dataset.firstValue = calculatedValue;
+            } else {
+                calculator.dataset.firstValue = displayedContent;
+            }
+
+            calculator.dataset.previousKeyType = 'operator';
+            calculator.dataset.operator = action;
         }
         if(action === 'equal'){
-            console.log(key.innerText)
+            
+            // display.innerText = operate(operator, firstValue, secondValue)
+            calculator.dataset.previousKeyType = 'equal';
         }
-
-
+        if(action === 'clear'){
+            calculator.dataset.previousKeyType = 'clear'
+        }
+        if(action === 'delete'){
+            calculator.dataset.previousKeyType = 'delete'
+        } 
+        if(action === 'decimal'){
+            if(!displayedContent.includes('.')){
+                display.innerText = displayedContent + '.'
+            } 
+            if(previousKeyType === 'operator'){
+                display.innerText = '0.'
+            }
+            calculator.dataset.previousKeyType = 'decimal';
+        }
+        if(action === 'percent'){
+            calculator.dataset.previousKeyType = 'percent'
+        }
+        if(action === 'negative'){  
+            calculator.dataset.previousKeyType = 'negative'
+        }
     }
-})
+    
+});
+
+// Egde cases:
+// -> digit no longer than 9
+// -> is-depressed when user clicks the button
+
+
+
 
 // button.forEach((button) => {
 //     button.addEventListener('click', (event) => {

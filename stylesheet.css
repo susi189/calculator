@@ -6,7 +6,7 @@ body {
   background-size: cover;
   max-width: 100%;
   height: auto;
-  font-family: "Nanum Myeongjo", serif;
+  font-family: "Roboto", sans-serif;
 }
 
 .container {
@@ -48,11 +48,16 @@ button {
   padding-top: 4%;
   padding-bottom: 4%;
   border-radius: 10px;
-  font-family: "Nanum Myeongjo", serif;
+  /* border: none; */
+  font-family: "Roboto", sans-serif;
   font-size: 2.5em;
   text-align: center;
   outline: none;
 }
+
+/* .is-depressed {
+  opacity: 70%;
+} */
 
 .num-btn {
   background-color: #ead6dd;
