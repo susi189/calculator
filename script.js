@@ -60,13 +60,13 @@ keys.addEventListener('click', (event) => {
         const action = key.getAttribute('data-action');
         const displayedContent = display.innerText;
         const previousKeyType = calculator.dataset.previousKeyType;
-        const firstValue = calculator.dataset.firstValue;
-        const operator = calculator.dataset.operator;
-        const secondValue = displayedContent;
+        let firstValue = calculator.dataset.firstValue;
+        let operator = calculator.dataset.operator;
+        let secondValue = displayedContent;
 
         if(!action){
             //we have a number
-            if(displayedContent === '0' || previousKeyType === 'operator'){
+            if(displayedContent === '0' || previousKeyType === 'operator' || previousKeyType === 'equals'){
                 display.innerText = keyContent;
             } else {
                 display.innerText = displayedContent + keyContent
@@ -76,7 +76,7 @@ keys.addEventListener('click', (event) => {
         
         if(action === 'add' || action === 'subtract' || action === 'divide' || action === 'multiply'){
 
-            if (firstValue && operator && previousKeyType !== 'operator') {
+            if (firstValue && operator && previousKeyType !== 'operator' && previousKeyType !== 'equal') {
                 const calculatedValue = operate(operator, firstValue, secondValue);
                 display.innerText = calculatedValue;
                 calculator.dataset.firstValue = calculatedValue;
@@ -88,8 +88,14 @@ keys.addEventListener('click', (event) => {
             calculator.dataset.operator = action;
         }
         if(action === 'equal'){
-            
-            // display.innerText = operate(operator, firstValue, secondValue)
+            if(firstValue){
+                if(previousKeyType === 'equal'){
+                    firstValue = displayedContent;
+                    secondValue = calculator.dataset.modValue;
+                }
+                display.innerText = operate(operator, firstValue, secondValue); 
+            }
+            calculator.dataset.modValue = secondValue;
             calculator.dataset.previousKeyType = 'equal';
         }
         if(action === 'clear'){
@@ -102,7 +108,7 @@ keys.addEventListener('click', (event) => {
             if(!displayedContent.includes('.')){
                 display.innerText = displayedContent + '.'
             } 
-            if(previousKeyType === 'operator'){
+            if(previousKeyType === 'operator' || previousKeyType === 'equal'){
                 display.innerText = '0.'
             }
             calculator.dataset.previousKeyType = 'decimal';
@@ -113,6 +119,7 @@ keys.addEventListener('click', (event) => {
         if(action === 'negative'){  
             calculator.dataset.previousKeyType = 'negative'
         }
+        console.log(firstValue, secondValue)
     }
     
 });
