@@ -100,9 +100,16 @@ keys.addEventListener('click', (event) => {
             calculator.dataset.previousKeyType = 'equal';
         }
         if(action === 'clear'){
-            calculator.dataset.previousKeyType = 'clear'
+            display.innerText = '0';
+            calculator.dataset.firstValue = null;
+            calculator.dataset.modValue = null;
+            calculator.dataset.operator = null;
+            calculator.dataset.previousKeyType = 'clear';
         }
         if(action === 'delete'){
+            if(displayedContent !== '0'){
+                display.innerText = displayedContent.slice(0, -1)
+            }
             calculator.dataset.previousKeyType = 'delete'
         } 
         if(action === 'decimal'){
