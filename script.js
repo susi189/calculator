@@ -17,7 +17,7 @@ function divide(x, y){
 }
 
 //here I will store single calculation elements that will be displayed
-let lineUp = [];
+// let lineUp = [];
 
 //here are the curent numbers that the calculation is performed on
 // let operationElements = {
@@ -122,9 +122,15 @@ keys.addEventListener('click', (event) => {
             calculator.dataset.previousKeyType = 'decimal';
         }
         if(action === 'percent'){
+            
             calculator.dataset.previousKeyType = 'percent'
         }
-        if(action === 'negative'){  
+        if(action === 'negative'){ 
+            if(!displayedContent.includes('-') && displayedContent !== '0'){
+                display.innerText = '-' + displayedContent;
+            } else if(displayedContent.includes('-')) {
+                display.innerText = displayedContent.slice(1);
+            }
             calculator.dataset.previousKeyType = 'negative'
         }
         console.log(firstValue, secondValue)
