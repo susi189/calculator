@@ -56,7 +56,7 @@ const display = document.querySelector('.display');
 keys.addEventListener('click', (event) => {
     if(event.target.matches('button')){
         const key = event.target;
-        const keyContent = key.innerText;
+        let keyContent = key.innerText;
         const action = key.getAttribute('data-action');
         const displayedContent = display.innerText;
         const previousKeyType = calculator.dataset.previousKeyType;
@@ -66,7 +66,8 @@ keys.addEventListener('click', (event) => {
 
         if(!action){
             //we have a number
-            if(displayedContent === '0' || previousKeyType === 'operator' || previousKeyType === 'equals'){
+            console.log(previousKeyType)
+            if(displayedContent === '0' || previousKeyType === 'operator' || previousKeyType === 'equal'){
                 display.innerText = keyContent;
             } else {
                 display.innerText = displayedContent + keyContent
