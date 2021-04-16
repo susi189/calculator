@@ -37,7 +37,6 @@ keys.addEventListener('click', (event) => {
         let firstValue = calculator.dataset.firstValue;
         let operator = calculator.dataset.operator;
         let secondValue = displayedContent;
-        //If the key is a number  // cbrumm: Comments should add information.
         if(keyType === 'number'){
             if (displayedContent === '0' && !firstValue || previousKeyType === 'operator'){
                 display.innerText = keyContent;
