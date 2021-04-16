@@ -1,7 +1,7 @@
 // In this function I perform the calculations
 
 const operate = function(operator, num1, num2){ 
-    const firstNum = parseFloat(num1);
+    const firstNum = parseFloat(num1); 
     const secondNum = parseFloat(num2);
    if(operator === 'add'){
        return firstNum + secondNum
@@ -17,32 +17,28 @@ const operate = function(operator, num1, num2){
     }
 }
 
-const setNumOfDigits = (displayedContent) => {
-    if(displayedContent.length > 9){
-        return displayedContent.slice(0, 9);
-    } else {
-        return displayedContent;
-    }
-}
-
 const calculator = document.querySelector('.calculator');
 const keys = calculator.querySelector('.keys');
 const display = document.querySelector('.display');
 
+
+
 //Improvement options for consider in the future: refactor the code to make the event listener more readable 
 
 keys.addEventListener('click', (event) => {
-    if(event.target.matches('button')){
+    if(!event.target.matches('button')){
+        return
+    }
         const key = event.target;
-        let keyContent = key.innerText;
-        let action = key.getAttribute('data-action');
+        const keyContent = key.innerText;
+        const keyType = key.getAttribute('data-action');
         let displayedContent = display.innerText;
         let previousKeyType = calculator.dataset.previousKeyType;
         let firstValue = calculator.dataset.firstValue;
         let operator = calculator.dataset.operator;
         let secondValue = displayedContent;
-        //If the key is a number
-        if(!action){
+        //If the key is a number  // cbrumm: Comments should add information.
+        if(keyType === 'number'){
             if (displayedContent === '0' && !firstValue || previousKeyType === 'operator'){
                 display.innerText = keyContent;
             } else if(previousKeyType === 'calculate'){
@@ -57,7 +53,7 @@ keys.addEventListener('click', (event) => {
              calculator.dataset.previousKeyType = 'number';
         } 
         //Making numbers negative
-        if(action === 'negative'){ 
+        if(keyType === 'negative'){ 
             if(!displayedContent.includes('-') && displayedContent !== '0'){
                 display.innerText = '-' + displayedContent;
             } else if(displayedContent.includes('-')) {
@@ -65,7 +61,7 @@ keys.addEventListener('click', (event) => {
             }
             calculator.dataset.previousKeyType = 'negative';
         }
-         if(action === 'decimal'){
+         if(keyType === 'decimal'){
             if(displayedContent.length > 7){
                 display.innerText = displayedContent;
             } else if(!displayedContent.includes('.')){
@@ -78,7 +74,7 @@ keys.addEventListener('click', (event) => {
         }
 
         //if the key is an operator for calculations
-        if(action === 'add' || action === 'subtract' || action === 'divide' || action === 'multiply'){
+        if(keyType === 'add' || keyType === 'subtract' || keyType === 'divide' || keyType === 'multiply'){
             if (firstValue && operator && previousKeyType !== 'operator' && previousKeyType !== 'calculate') {
                 const calculatedValue = operate(operator, firstValue, secondValue);
                 display.innerText = calculatedValue;
@@ -91,7 +87,7 @@ keys.addEventListener('click', (event) => {
             calculator.dataset.operator = action;
         }
         //If the key is a equal sign
-        if(action === 'calculate'){
+        if(keyType === 'calculate'){
             if(firstValue){
                 if(previousKeyType === 'calculate'){
                     firstValue = displayedContent;
@@ -103,7 +99,7 @@ keys.addEventListener('click', (event) => {
             calculator.dataset.previousKeyType = 'calculate';
         }
         //If the key is a AC sign
-        if(action === 'clear'){
+        if(keyType === 'clear'){
             display.innerText = '0';
             calculator.dataset.firstValue = '';
             calculator.dataset.modValue = '';
@@ -111,7 +107,7 @@ keys.addEventListener('click', (event) => {
             calculator.dataset.previousKeyType = 'clear';
         }
         //If the key is a backspace sign
-        if(action === 'delete'){
+        if(keyType === 'delete'){
             if(displayedContent.length > 1){
                 display.innerText = displayedContent.slice(0, -1)
             } else {
@@ -120,7 +116,7 @@ keys.addEventListener('click', (event) => {
             calculator.dataset.previousKeyType = 'delete'
         }
         // if the key is a % sign
-        if(action === 'percent'){
+        if(keyType === 'percent'){
             display.innerText = displayedContent/100;
             calculator.dataset.previousKeyType = 'percent';
         }
