@@ -26,9 +26,7 @@ const display = document.querySelector('.display');
 //Improvement options for consider in the future: refactor the code to make the event listener more readable 
 
 keys.addEventListener('click', (event) => {
-    if(!event.target.matches('button')){
-        return
-    }
+    if(event.target.matches('button')){
         const key = event.target;
         const keyContent = key.innerText;
         const keyType = key.getAttribute('data-action');
