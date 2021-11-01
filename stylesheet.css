@@ -1,35 +1,39 @@
+:root {
+  --white: #f3f5f6;
+}
+
 body {
-  background-image: url(image-calculator.jpg);
-  background-color: #ceeaf7;
+  background-image: url(image_forest.jpg);
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
-  max-width: 100%;
-  height: auto;
   font-family: "Roboto", sans-serif;
+  margin-right: 15%;
+  margin-left: 15%;
+  margin-top: 8%;
+  margin-bottom: 5%;
 }
 
 .container {
   display: flex;
   justify-content: center;
-  margin-right: 15%;
-  margin-left: 15%;
-  margin-top: 10%;
 }
 
 .calculator {
-  background-color: #42464d;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background: rgba(126, 128, 131, 0.7);
   border-radius: 25px;
-  width: 80%;
-  height: 100%;
+  padding: 3%;
+  width: 600px;
 }
 
 .display {
-  background-color: #f3f5f6;
+  background: var(--white);
   border-radius: 10px;
-  margin: 5%;
-  padding-top: 3%;
-  width: 90%;
+  margin: 1%;
+  padding-right: 10px;
   height: 20%;
   font-size: 4.5em;
   text-align: end;
@@ -37,7 +41,7 @@ body {
 
 .keys {
   display: grid;
-  margin: 5%;
+  /* margin: 5%; */
   grid-template-rows: repeat(var(--grid-row), 1fr);
   grid-template-columns: repeat(var(--grid-col), 1fr);
 }
